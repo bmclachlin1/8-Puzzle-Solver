@@ -1,3 +1,3 @@
 # SlidingTiles
 
-# CPSC 3620 Programming Project
+# Function: Solves the 8-puzzle problem using A* search algorithm
