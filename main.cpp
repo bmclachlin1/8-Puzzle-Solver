@@ -17,28 +17,31 @@ int main()
 {
 	cout << "Testing Sliding Tiles\n\n";
 	
-	string config = "483157026";
-	string config2 = "123745086";
+	string config = "123745086";
 	string goal = "123456780";
 
-	Board_Tile bt1(config);
-	Board_Tile bt2(config2);
 	Board_Tile goalconfig(goal);
-
-	bt1.printBoard();
-	bt2.printBoard();
+	cout << "Goal Board \n";
 	goalconfig.printBoard();
 
-	int md1, md2;
-	md1 = bt1.Manhattan_Distance(goalconfig);
-	md2 = bt2.Manhattan_Distance(goalconfig);
-
-	cout << "md1 " << md1 << endl << "md2 " << md2 << endl;
-
-	if (bt1 < bt2)
-		cout << "bt1 has a lesser manhattan distance than bt2" << endl;
-	else
-		cout << "bt1 has a greater manhattan distance than bt2" << endl;
+	Board_Tile bt1(config);
+	cout << "Initial Board \n";
+	cout << "EC: " << bt1.Manhattan_Distance(goalconfig) << "\n";
+	cout << "AC: " << bt1.getAC() << "\n";
+	cout << "movesFromStart: " << bt1.getMovesFromStart() << "\n";
+	cout << "moves: " << bt1.getMoves() << "\n";
+	bt1.printBoard();
+	
+	vector<Board_Tile> test;
+	test = bt1.nextConfigs();
+	cout << "Next Configs \n\n";
+	for (int i = 0; i < test.size(); i++) {
+		cout << "EC: " << test[i].Manhattan_Distance(goalconfig) << "\n";
+		cout << "AC: " << test[i].getAC() << "\n";
+		cout << "movesFromStart: " << test[i].getMovesFromStart() << "\n";
+		cout << "moves: " << test[i].getMoves() << "\n";
+		test[i].printBoard();
+	}
 
 	cin.get();
 }

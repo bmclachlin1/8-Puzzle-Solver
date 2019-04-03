@@ -8,13 +8,14 @@
 #include "Board_Tile.h"
 using namespace std;
 
-Board_Tile::Board_Tile(const string &s)
-	:config(s)
+Board_Tile::Board_Tile(const string &s, const string& steps, const int& init) 
+	:config(s), movesFromStart(steps), AC(init)
 {
 	assert(config.length() == 9);
 	for (unsigned int i = 0; i < config.length(); i++)
 		if (config[i] == '0')
 			indexAtZero = i;
+	moves = movesFromStart.length();
 }
 
 vector<Board_Tile> Board_Tile::nextConfigs()
@@ -25,22 +26,34 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 
 	if (canMoveInDirection('U')) {
 		swap(newConfig[iAtZero], newConfig[iAtZero - 3]);
-		temp.push_back(Board_Tile(newConfig));
+		Board_Tile t(newConfig, this->movesFromStart, this->AC);
+		t.updateMoves('U');
+		t.updateAC();
+		temp.push_back(t);
 		newConfig = config;
 	}
 	if (canMoveInDirection('D')) {
 		swap(newConfig[iAtZero], newConfig[iAtZero + 3]);
-		temp.push_back(Board_Tile(newConfig));
+		Board_Tile t(newConfig, this->movesFromStart, this->AC);
+		t.updateMoves('D');
+		t.updateAC();
+		temp.push_back(t);
 		newConfig = config;
 	}
 	if (canMoveInDirection('L')) {
 		swap(newConfig[iAtZero], newConfig[iAtZero - 1]);
-		temp.push_back(Board_Tile(newConfig));
+		Board_Tile t(newConfig, this->movesFromStart, this->AC);
+		t.updateMoves('L');
+		t.updateAC();
+		temp.push_back(t);
 		newConfig = config;
 	}
 	if (canMoveInDirection('R')) {
 		swap(newConfig[iAtZero], newConfig[iAtZero + 1]);
-		temp.push_back(Board_Tile(newConfig));
+		Board_Tile t(newConfig, this->movesFromStart, this->AC);
+		t.updateMoves('R');
+		t.updateAC();
+		temp.push_back(t);
 		newConfig = config;
 	}
 
@@ -49,15 +62,15 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 
 int Board_Tile::numMoves() const
 {
-	return 0;
+	return moves;
 }
 
-int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig)
+int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig) 
 {
 	if (this == &goalconfig)
 		exit(0);
 
-	md = 0;
+	EC = 0;
 	for (int i = 0; i < config.length(); i++)
 		for (int j = 0; j < goalconfig.getConfig().length(); j++)
 			if (config[i] == goalconfig[j] && config[i] != '0')
@@ -66,9 +79,9 @@ int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig)
 				int yi = getYCoord(config[i]);
 				int xj = goalconfig.getXCoord(goalconfig[j]);
 				int yj = goalconfig.getYCoord(goalconfig[j]);
-				md += abs(xi - xj) + abs(yi - yj);
+				EC += abs(xi - xj) + abs(yi - yj);
 			}
-	return md;
+	return EC;
 }
 
 bool Board_Tile::canMoveInDirection(const char& c) const
@@ -148,7 +161,38 @@ int Board_Tile::getYCoord(const char& num) const
 		return 1;
 	else
 		return 2;
+}
 
+int Board_Tile::getAC()
+{
+	return AC;
+}
+
+int Board_Tile::getEC()
+{
+	return EC;
+}
+
+string Board_Tile::getMovesFromStart()
+{
+	return movesFromStart;
+}
+
+int Board_Tile::getMoves()
+{
+	return moves;
+}
+
+void Board_Tile::updateAC()
+{
+	AC++;
+}
+
+void Board_Tile::updateMoves(const char& c)
+{
+	assert(c == 'L' || c == 'R' || c == 'U' || c == 'D');
+	movesFromStart += c;
+	moves++;
 }
 
 char Board_Tile::operator[] (const int& i) const
@@ -156,8 +200,27 @@ char Board_Tile::operator[] (const int& i) const
 	return config[i];
 }
 
+bool Board_Tile::operator==(const Board_Tile& rhs) const
+{
+	return (this->AC + this->EC) == (rhs.AC + rhs.EC);
+}
+
 bool Board_Tile::operator< (const Board_Tile& rhs) const
 {
-    //should be D(C) = A(C) + E(C)
-	return this->md < rhs.md;
+	return (this->AC + this->EC) < (rhs.AC + rhs.EC);
+}
+
+bool Board_Tile::operator> (const Board_Tile& rhs) const
+{
+	return (this->AC + this->EC) > (rhs.AC + rhs.EC);
+}
+
+bool Board_Tile::operator<= (const Board_Tile& rhs) const
+{
+	return !(rhs < (*this));
+}
+
+bool Board_Tile::operator>= (const Board_Tile& rhs) const
+{
+	return !(rhs > (*this));
 }

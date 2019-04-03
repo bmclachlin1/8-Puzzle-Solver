@@ -18,8 +18,11 @@ using namespace std;
 class Board_Tile
 {
 public:
-	//constructor
-	explicit Board_Tile(const string& s = "0123456789");
+	//constructor. 
+	//Param:	- s: the board configuration
+	//			- steps: the sequence of steps to reach this board configuration
+	//			- init: value of AC
+	explicit Board_Tile(const string& s = "0123456789", const string& steps = "", const int& init = 0);
 
 	//returns a list of board tiles at most 4 objects that are one move away from the current object
 	vector<Board_Tile> nextConfigs();
@@ -27,7 +30,7 @@ public:
 	//returns the number of moves it took from the initial board to reach the current configuration
 	int numMoves() const;
 
-	//takes a string representing the goal configuration and returns the manhattan distance of the
+	//takes a string representing the goal configuration and returns the manhattan distance of the 
 	//goal configuration
 	int Manhattan_Distance(const Board_Tile& goalConfig);
 
@@ -49,32 +52,66 @@ public:
 	//returns the y coordinate for an entry in config
 	int getXCoord(const char& num) const;
 
+	//returns AC
+	int getAC();
+
+	//returns EC
+	int getEC();
+
+	//returns the string movesFromStart
+	string getMovesFromStart();
+
+	//returns number of moves taken
+	int getMoves();
+
+	//Adds 1 to AC
+	void updateAC();
+
+	//Updates the string movesFromStart and update moves
+	void updateMoves(const char& c);
+
 	//returns config[i]
 	char operator[] (const int& i) const;
 
-	//overloaded inequality operator
+	//overloaded equals operator
+	bool operator== (const Board_Tile& rhs) const;
+
+	//overloaded not equals operator
+	bool operator!= (const Board_Tile& rhs) const;
+
+	//overloaded less-than operator
 	bool operator< (const Board_Tile& rhs) const;
+	
+	//overloaded greater-than
+	bool operator> (const Board_Tile& rhs) const;
+
+	//overloaded less-than or equal operator
+	bool operator<= (const Board_Tile& rhs) const;
+
+	//overloaded greater-than or equal operator
+	bool operator>= (const Board_Tile& rhs) const;
 
 private:
 	//Represents a 3x3 tile board in row-major order
 	string config;
 
+	//A list of Board Tile at most 4 objects that are one move away from the current object
+	vector<Board_Tile> nextConfig;
+
 	//Represents moves or steps that lead to config from a given start configuration
 	string movesFromStart;
 
-	//Stores the index of config that has 0 (config[i] == '0').
-	int indexAtZero;
-	//Number of moves that lead to config from a given start configuration.
-	//Always equal to movesFromStart.length()
+	//number of moves taken. Equal to movesFromStart.length()
 	int moves;
 
-	//manhattan distance
-	int md;
+	//Stores the index of config that has 0 (config[i] == '0').
+	int indexAtZero;
 
-	//number of columns
-	const int NUM_ROWS = 3;
-	//number of rows
-	const int NUM_COLS = 3;
+	//Manhattan Distance used to estimate the number of moves needed to reach the goal from configuration C.
+	int EC = 0;
+
+	//Number of moves needed to reach configuration C from the start configuration
+	int AC;
 };
 
 #endif
