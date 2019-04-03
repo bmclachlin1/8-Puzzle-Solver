@@ -28,7 +28,7 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 		swap(newConfig[iAtZero], newConfig[iAtZero - 3]);
 		Board_Tile t(newConfig, this->movesFromStart, this->AC);
 		t.updateMoves('U');
-		t.updateAC();
+		++t.AC;
 		temp.push_back(t);
 		newConfig = config;
 	}
@@ -36,7 +36,7 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 		swap(newConfig[iAtZero], newConfig[iAtZero + 3]);
 		Board_Tile t(newConfig, this->movesFromStart, this->AC);
 		t.updateMoves('D');
-		t.updateAC();
+		++t.AC;
 		temp.push_back(t);
 		newConfig = config;
 	}
@@ -44,7 +44,7 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 		swap(newConfig[iAtZero], newConfig[iAtZero - 1]);
 		Board_Tile t(newConfig, this->movesFromStart, this->AC);
 		t.updateMoves('L');
-		t.updateAC();
+		++t.AC;
 		temp.push_back(t);
 		newConfig = config;
 	}
@@ -52,7 +52,7 @@ vector<Board_Tile> Board_Tile::nextConfigs()
 		swap(newConfig[iAtZero], newConfig[iAtZero + 1]);
 		Board_Tile t(newConfig, this->movesFromStart, this->AC);
 		t.updateMoves('R');
-		t.updateAC();
+		++t.AC;
 		temp.push_back(t);
 		newConfig = config;
 	}
@@ -181,11 +181,6 @@ string Board_Tile::getMovesFromStart()
 int Board_Tile::getMoves()
 {
 	return moves;
-}
-
-void Board_Tile::updateAC()
-{
-	AC++;
 }
 
 void Board_Tile::updateMoves(const char& c)

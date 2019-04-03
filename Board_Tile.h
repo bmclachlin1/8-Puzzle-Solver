@@ -64,9 +64,6 @@ public:
 	//returns number of moves taken
 	int getMoves();
 
-	//Adds 1 to AC
-	void updateAC();
-
 	//Updates the string movesFromStart and update moves
 	void updateMoves(const char& c);
 
