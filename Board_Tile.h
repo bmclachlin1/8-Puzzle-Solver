@@ -18,7 +18,7 @@ using namespace std;
 class Board_Tile
 {
 public:
-	//constructor. 
+	//constructor.
 	//Param:	- s: the board configuration
 	//			- steps: the sequence of steps to reach this board configuration
 	//			- init: value of AC
@@ -30,7 +30,7 @@ public:
 	//returns the number of moves it took from the initial board to reach the current configuration
 	int numMoves() const;
 
-	//takes a string representing the goal configuration and returns the manhattan distance of the 
+	//takes a string representing the goal configuration and returns the manhattan distance of the
 	//goal configuration
 	int Manhattan_Distance(const Board_Tile& goalConfig);
 
@@ -51,6 +51,9 @@ public:
 
 	//returns the y coordinate for an entry in config
 	int getXCoord(const char& num) const;
+
+	//returns DC
+	int getDC();
 
 	//returns AC
 	int getAC();
@@ -78,7 +81,7 @@ public:
 
 	//overloaded less-than operator
 	bool operator< (const Board_Tile& rhs) const;
-	
+
 	//overloaded greater-than
 	bool operator> (const Board_Tile& rhs) const;
 
@@ -103,6 +106,9 @@ private:
 
 	//Stores the index of config that has 0 (config[i] == '0').
 	int indexAtZero;
+
+	//Heuristic
+	int DC;
 
 	//Manhattan Distance used to estimate the number of moves needed to reach the goal from configuration C.
 	int EC = 0;

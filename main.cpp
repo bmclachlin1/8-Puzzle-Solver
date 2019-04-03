@@ -16,7 +16,7 @@ using namespace std;
 int main()
 {
 	cout << "Testing Sliding Tiles\n\n";
-	
+
 	string config = "123745086";
 	string goal = "123456780";
 
@@ -31,7 +31,9 @@ int main()
 	cout << "movesFromStart: " << bt1.getMovesFromStart() << "\n";
 	cout << "moves: " << bt1.getMoves() << "\n";
 	bt1.printBoard();
-	
+
+
+
 	vector<Board_Tile> test;
 	test = bt1.nextConfigs();
 	cout << "Next Configs \n\n";
@@ -42,6 +44,13 @@ int main()
 		cout << "moves: " << test[i].getMoves() << "\n";
 		test[i].printBoard();
 	}
+
+    cout << "Test \n\n";
+
+	Sliding_Solver solver(config, goal);
+	string s1;
+	s1 = solver.Solve_Puzzle();
+	cout << s1 << "\n";
 
 	cin.get();
 }

@@ -17,9 +17,9 @@ class Sliding_Solver
 {
 public:
 	//constructor
-	explicit Sliding_Solver(const string& startConfig);
+	explicit Sliding_Solver(const string& start, const string& goal);
 
-	//Uses A* search to solve the puzzle. Returns a string of the moves to solve the puzzle. 
+	//Uses A* search to solve the puzzle. Returns a string of the moves to solve the puzzle.
 	string Solve_Puzzle();
 
 private:
@@ -27,7 +27,10 @@ private:
 	BinaryHeap<Board_Tile> tileQueue;
 
 	//the start configuration
-	string startConfig;
+	Board_Tile startConfig;
+
+	//the goal configuration
+	Board_Tile goalConfig;
 };
 
 #endif

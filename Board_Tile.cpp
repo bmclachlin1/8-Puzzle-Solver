@@ -8,7 +8,7 @@
 #include "Board_Tile.h"
 using namespace std;
 
-Board_Tile::Board_Tile(const string &s, const string& steps, const int& init) 
+Board_Tile::Board_Tile(const string &s, const string& steps, const int& init)
 	:config(s), movesFromStart(steps), AC(init)
 {
 	assert(config.length() == 9);
@@ -65,7 +65,7 @@ int Board_Tile::numMoves() const
 	return moves;
 }
 
-int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig) 
+int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig)
 {
 	if (this == &goalconfig)
 		exit(0);
@@ -163,6 +163,12 @@ int Board_Tile::getYCoord(const char& num) const
 		return 2;
 }
 
+int Board_Tile::getDC()
+{
+    DC = EC + AC;
+    return DC;
+}
+
 int Board_Tile::getAC()
 {
 	return AC;
@@ -198,6 +204,11 @@ char Board_Tile::operator[] (const int& i) const
 bool Board_Tile::operator==(const Board_Tile& rhs) const
 {
 	return (this->AC + this->EC) == (rhs.AC + rhs.EC);
+}
+
+bool Board_Tile::operator!=(const Board_Tile& rhs) const
+{
+    return !((*this) == rhs);
 }
 
 bool Board_Tile::operator< (const Board_Tile& rhs) const
