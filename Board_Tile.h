@@ -1,6 +1,6 @@
 //**************************************************
 //Name: Blake McLachlin
-//Last Date Revised: March 22, 2019
+//Last Date Revised: April 03, 2019
 //Program: Board_Tile.h
 //Purpose: Header file for Board_Tile.cpp
 //**************************************************
@@ -63,9 +63,6 @@ public:
 
 	//returns the string movesFromStart
 	string getMovesFromStart();
-
-	//returns number of moves taken
-	int getMoves();
 
 	//Updates the string movesFromStart and update moves
 	void updateMoves(const char& c);

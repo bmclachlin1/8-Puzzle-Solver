@@ -1,6 +1,6 @@
 //**************************************************
 //Name: Blake McLachlin
-//Last Date Revised: March 22, 2019
+//Last Date Revised: April 03, 2019
 //Program: Sliding_Solver.h
 //Purpose: Represents 3x3 tile boards.
 //**************************************************
@@ -11,7 +11,7 @@ using namespace std;
 Board_Tile::Board_Tile(const string &s, const string& steps, const int& init)
 	:config(s), movesFromStart(steps), AC(init)
 {
-	assert(config.length() == 9);
+	//assert(config.length() == 9);
 	for (unsigned int i = 0; i < config.length(); i++)
 		if (config[i] == '0')
 			indexAtZero = i;
@@ -71,8 +71,8 @@ int Board_Tile::Manhattan_Distance(const Board_Tile& goalconfig)
 		exit(0);
 
 	EC = 0;
-	for (int i = 0; i < config.length(); i++)
-		for (int j = 0; j < goalconfig.getConfig().length(); j++)
+	for (unsigned int i = 0; i < config.length(); i++)
+		for (unsigned int j = 0; j < goalconfig.getConfig().length(); j++)
 			if (config[i] == goalconfig[j] && config[i] != '0')
 			{
 				int xi = getXCoord(config[i]);
@@ -128,7 +128,7 @@ void Board_Tile::printBoard() const
 		for (int cols = 0; cols < 3; cols++)
 			cout << config[rows * 3 + cols] << " ";
 	}
-	cout << "\n\n";
+	cout << "\n";
 }
 
 int Board_Tile::getXCoord(const char& num) const
@@ -136,7 +136,7 @@ int Board_Tile::getXCoord(const char& num) const
 	int indexAtNum;
 	assert(num == '0' || num == '1' || num == '2' || num == '3' || num == '4' ||
 		num == '5' || num == '6' || num == '7' || num == '8');
-	for (int i = 0; i < config.length(); i++)
+	for (unsigned int i = 0; i < config.length(); i++)
 		if (config[i] == num)
 			indexAtNum = i;
 	if (indexAtNum % 3 == 0)
@@ -152,7 +152,7 @@ int Board_Tile::getYCoord(const char& num) const
 	int indexAtNum;
 	assert(num == '0' || num == '1' || num == '2' || num == '3' || num == '4' ||
 		   num == '5' || num == '6' || num == '7' || num == '8');
-	for (int i = 0; i < config.length(); i++)
+	for (unsigned int i = 0; i < config.length(); i++)
 		if (config[i] == num)
 			indexAtNum = i;
 	if (indexAtNum / 3 == 0)
@@ -182,11 +182,6 @@ int Board_Tile::getEC()
 string Board_Tile::getMovesFromStart()
 {
 	return movesFromStart;
-}
-
-int Board_Tile::getMoves()
-{
-	return moves;
 }
 
 void Board_Tile::updateMoves(const char& c)

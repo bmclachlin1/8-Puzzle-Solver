@@ -1,6 +1,6 @@
 //**************************************************
 //Name: Blake McLachlin
-//Last Date Revised: March 22, 2019
+//Last Date Revised: April 03, 2019
 //Program: Sliding_Solver.h
 //Purpose: Header file for Sliding_Solver.cpp
 //**************************************************
@@ -27,10 +27,10 @@ private:
 	BinaryHeap<Board_Tile> tileQueue;
 
 	//the start configuration
-	Board_Tile startConfig;
+	string startConfig;
 
 	//the goal configuration
-	Board_Tile goalConfig;
+	string goalConfig;
 };
 
 #endif
