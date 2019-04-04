@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	cout << "--Testing Sliding Tiles--\n\n";
+	cout << "--Testing Sliding Tiles--\n";
 	string config = "436871052";
 	string config2 = "123745086";
 	string goal = "123456780";
