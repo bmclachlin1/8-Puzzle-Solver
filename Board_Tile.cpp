@@ -11,7 +11,6 @@ using namespace std;
 Board_Tile::Board_Tile(const string &s, const string& steps, const int& init)
 	:config(s), movesFromStart(steps), AC(init)
 {
-	//assert(config.length() == 9);
 	for (unsigned int i = 0; i < config.length(); i++)
 		if (config[i] == '0')
 			indexAtZero = i;

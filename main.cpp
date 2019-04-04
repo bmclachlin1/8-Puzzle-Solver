@@ -8,50 +8,45 @@
 #include "BinaryHeap.h"
 #include "Board_Tile.h"
 #include "Sliding_Solver.h"
+#include <iomanip>
 #include <iostream>
+#include <cassert>
 #include <string>
 #include <vector>
 using namespace std;
 
 int main()
 {
-	cout << "--Testing Sliding Tiles--\n";
-	string config = "436871052";
-	string config2 = "123745086";
-	string config3 = "835416270";
-	string goal = "123456780";
-	string goal2 = "123456780";
-	string goal3 = "123804765";
-	Board_Tile bt1(config);
-	Board_Tile bt2(config2);
-	Board_Tile bt3(config3);
-	Board_Tile goalconfig(goal);
-	Board_Tile goalconfig2(goal2);
-	Board_Tile goalconfig3(goal3);
-	Sliding_Solver solver1(config, goal);
-	Sliding_Solver solver2(config2, goal2);
-	Sliding_Solver solver3(config3, goal3);
+	string start, goal, solution, userinput;
+	int moves;
+	bool flag = false;
 
-	cout << "\nStart Board \n";
-	bt1.printBoard();
-	cout << "\nGoal Board \n";
-	goalconfig.printBoard();
-    cout << "\n--Testing Solver--\n\n";
-	solver1.Solve_Puzzle();
+	while (!flag)
+	{
+		cout << "Enter a nine digit start configuration representing a 3x3 tile board: ";
+		getline(cin, start);
+		if (start.length() != 9)
+			continue;
+		cout << "Enter a nine digit goal configuration representing a 3x3 tile board: ";
+		getline(cin, goal);
+		if (goal.length() != 9)
+			continue;
+		Sliding_Solver solve(start, goal);
+		solution = solve.Solve_Puzzle();
+		if (solution != "No Solution")
+			moves = solution.length();
+		else
+			moves = 0;
+		cout << "\n";
+		cout << left << setw(20) << "Start Board" << setw(20) << "Goal Board" << setw(20) << "Number of moves" << setw(20) << "Solution";
+		cout << "\n\n";
+		cout << left << setw(20) << start << setw(20) << goal << setw(20) << moves << setw(20) << solution << "\n\n";
+		cout << "Would you like to continue? Enter 0 to exit and any other key to continue: ";
+		getline(cin, userinput);
+		if (userinput == "0")
+			flag = true;
+		cout << "\n\n";
+	}
 
-	cout << "Start Board\n";
-	bt2.printBoard();
-	cout << "\nGoal Board\n";
-	goalconfig2.printBoard();
-	cout << "\n--Testing Solver--\n\n";
-	solver2.Solve_Puzzle();
-
-	cout << "Start Board\n";
-	bt3.printBoard();
-	cout << "\nGoal Board \n";
-	goalconfig3.printBoard();
-	cout << "\n--Testing Solver--\n\n";
-	solver3.Solve_Puzzle();
-
-	cin.get();
+	return 0;
 }
