@@ -30,7 +30,7 @@ public:
 	//returns the number of moves it took from the initial board to reach the current configuration
 	int numMoves() const;
 
-	//takes a string representing the goal configuration and returns the manhattan distance of the
+	//takes a string representing the goal configuration and returns the manhattan distance (EC) of the
 	//goal configuration
 	int Manhattan_Distance(const Board_Tile& goalConfig);
 
@@ -57,9 +57,6 @@ public:
 
 	//returns AC
 	int getAC();
-
-	//returns EC
-	int getEC();
 
 	//returns the string movesFromStart
 	string getMovesFromStart();

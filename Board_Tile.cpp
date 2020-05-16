@@ -173,11 +173,6 @@ int Board_Tile::getAC()
 	return AC;
 }
 
-int Board_Tile::getEC()
-{
-	return EC;
-}
-
 string Board_Tile::getMovesFromStart()
 {
 	return movesFromStart;
